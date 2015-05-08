@@ -7,10 +7,11 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+ <p> <img src="<%=  current_user.avatar.url %>" height="100" width="100"> Welcome ya <%= current_user.nickname %> Nawart ^_^ </p>
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
 
-  <p> <%= image_tag current_user.avatar.url %> Welcome ya <%= current_user.nickname %> Nawart ^_^ </p>
+  
 
 <%= yield %>
 

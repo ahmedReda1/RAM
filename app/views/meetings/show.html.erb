@@ -18,23 +18,24 @@
   <dd><%= @meeting.desc %></dd>
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
   <dd><%= @meeting.location %></dd>
-  <dt><strong><%= model_class.human_attribute_name(:user_id) %>:</strong></dt>
-  <dd><%= @meeting.user_id %></dd>
+  <dt><strong> Admin:</strong></dt>
+  <dd><%  @user = User.find(@meeting.user_id)   %><%= @user.nickname %></dd>
   <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
   <dd><%= image_tag @meeting.avatar.url %>
   
 </dl>
 
 
+
 <h2>Comments</h2>
 <% @meeting.comments.each do |comment| %>
   <p>
-    <strong>Commenter:</strong>
-    <%= comment.user_id %>
-  </p>
- 
-  <p>
-    <strong>Comment:</strong>
+    
+     <%  @user = User.find(comment.user_id )  %>
+   <img src="<%= @user.avatar.url %>" height="50" width="50">
+    <strong><%= @user.nickname %>:</strong>
+  
+    
     <%= comment.commentbody %>
   </p>
   <%  if(comment.user_id==current_user.id) %>
