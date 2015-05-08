@@ -8,7 +8,9 @@
 </head>
 <body>
  <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+ <p class="alert"><%= alert %></p>
+
+  <p> <%= image_tag current_user.avatar.url %> Welcome ya <%= current_user.nickname %> Nawart ^_^ </p>
 
 <%= yield %>
 
