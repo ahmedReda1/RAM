@@ -1,0 +1,55 @@
+<h2>Sign up</h2>
+
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! %>
+  <!-- nickname -->
+  <div class="field">
+    <%= f.label :Nickname %><br />
+    <%= f.text_field :nickname, autofocus: true %>
+  </div>
+<!-- email -->
+  <div class="field">
+    <%= f.label :Email %><br />
+    <%= f.email_field :email, autofocus: true %>
+  </div>
+<!-- password -->
+  <div class="field">
+    <%= f.label :Password %>
+    <% if @validatable %>
+    <em>(<%= @minimum_password_length %> characters minimum)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "off" %>
+  </div>
+<!-- confirm password -->
+  <div class="field">
+    <%= f.label :Password_confirmation %><br />
+    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+  </div>
+  <!-- gender -->
+  <div><%= f.check_box :isfemale, {}, true %> <%= f.label :isfemale, "Female" %> </div>
+  <div><%= f.check_box :isfemale, {}, false %> <%= f.label :isfemale, "Male" %> </div>
+  <!-- <country> -->
+  <div class="form-group">
+    <%= f.label :Country %>
+       <%= f.country_select(:country, {selected: @user.country}) %>
+    <%=f.error_span(:country) %>
+  </div>
+  <!-- about me -->
+  <div class="field">
+    <%= f.label :About_Me %><br />
+    <%= f.text_area :aboutme, autofocus: true %>
+  </div>
+
+  <!-- photo -->
+    <div class="field">
+  <%= f.label :Avatar %><br />
+   <%= f.file_field :avatar %>
+    </div>
+
+
+  <div class="actions">
+    <%= f.submit "Sign up" %>
+  </div>
+<% end %>
+
+<%= render "devise/shared/links" %>

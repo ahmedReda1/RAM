@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Listing Meetusers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Meeting</th>
+      <th>User</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meetusers.each do |meetuser| %>
+      <tr>
+        <td><%= meetuser.meeting %></td>
+        <td><%= meetuser.user %></td>
+        <td><%= link_to 'Show', meetuser %></td>
+        <td><%= link_to 'Edit', edit_meetuser_path(meetuser) %></td>
+        <td><%= link_to 'Destroy', meetuser, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Meetuser', new_meetuser_path %>
