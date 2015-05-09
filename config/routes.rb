@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   #resources :comments
-  resources :meetusers
+  
   #resources :meetings
 	get 'welcome/index'  
 # The priority is based upon order of creation: first created -> highest priority.
@@ -12,6 +12,7 @@ Rails.application.routes.draw do
 
   resources :meetings do
   	resources :comments
+        resources :meetusers
   end
 
 

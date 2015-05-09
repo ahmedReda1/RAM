@@ -3,6 +3,7 @@
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
+
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @meeting.name %></dd>
@@ -25,6 +26,22 @@
   
 </dl>
 
+<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
+       <%  if(!@meetuser) %>
+	
+
+		<%= form_for([@meeting,@meeting.meetusers.build]) do |f| %>
+		   <div class="field">
+		    <%= f.hidden_field :user_id, :value => current_user.id %>
+		  </div>
+		  <div class="actions">
+		    <%=f.submit %>
+		  </div>
+		<% end %>
+
+       
+	<% end %>
+
 
 
 <h2>Comments</h2>
@@ -32,7 +49,7 @@
   <p>
     
      <%  @user = User.find(comment.user_id )  %>
-   <img src="<%= @user.avatar.url %>" height="42" width="42">
+   <img src="<%= @user.avatar.url %>" height="50" width="50">
     <strong><%= @user.nickname %>:</strong>
   
     
@@ -54,20 +71,24 @@
 <% end %>
 
 
-<h2>Add a comment:</h2>
-<%= form_for([@meeting, @meeting.comments.build]) do |f| %>
-  <p>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-  </p>
-  <p>
-    <%= f.label :commentbody %><br>
-    <%= f.text_area :commentbody %>
-  </p>
-  <p>
-    <%= f.submit %>
-  </p>
+<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
+       <%  if(@meetuser) %>
+	<%  if(@meetuser.user_id==current_user.id) %>
+	<h2>Add a comment:</h2>
+	<%= form_for([@meeting, @meeting.comments.build]) do |f| %>
+	  <p>
+	    <%= f.hidden_field :user_id, :value => current_user.id %>
+	  </p>
+	  <p>
+	    <%= f.label :commentbody %><br>
+	    <%= f.text_area :commentbody %>
+	  </p>
+	  <p>
+	    <%= f.submit %>
+	  </p>
+	<% end %>
+        <% end %>
 <% end %>
-
 
 
 

@@ -1,4 +1,4 @@
 class Meetuser < ActiveRecord::Base
-  belongs_to :meeting
-  belongs_to :user
+  has_many :meeting, dependent: :destroy
+  has_many :user, dependent: :destroy
 end

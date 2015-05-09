@@ -1,13 +1,18 @@
 Rails.application.routes.draw do
-  resources :comments
+  #resources :comments
   resources :meetusers
-  resources :meetings
+  #resources :meetings
 	get 'welcome/index'  
 # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 	devise_for :users
   # You can have the root of your site routed with "root"
    root 'welcome#index'
+
+
+  resources :meetings do
+  	resources :comments
+  end
 
 
   # Example of regular route:
