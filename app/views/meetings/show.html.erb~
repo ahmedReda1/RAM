@@ -26,6 +26,8 @@
   
 </dl>
 
+<%= link_to "Profile", profiles_show_path(@user.id)  %>
+
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
        <%  if(!@meetuser) %>
 	
@@ -35,7 +37,7 @@
 		    <%= f.hidden_field :user_id, :value => current_user.id %>
 		  </div>
 		  <div class="actions">
-		    <%=f.submit %>
+		    <%= f.submit %>
 		  </div>
 		<% end %>
 
@@ -50,7 +52,7 @@
     
      <%  @user = User.find(comment.user_id )  %>
    <img src="<%= @user.avatar.url %>" height="50" width="50">
-    <strong><%= @user.nickname %>:</strong>
+    <strong><%= link_to @user.nickname , profiles_show_path(@user.id)   %>:</strong>
   
     
     <%= comment.commentbody %>

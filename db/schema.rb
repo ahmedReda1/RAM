@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150508085727) do
+ActiveRecord::Schema.define(version: 20150509080244) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "meeting_id",  limit: 4
@@ -53,6 +53,14 @@ ActiveRecord::Schema.define(version: 20150508085727) do
   add_index "meetusers", ["meeting_id"], name: "index_meetusers_on_meeting_id", using: :btree
   add_index "meetusers", ["user_id"], name: "index_meetusers_on_user_id", using: :btree
 
+  create_table "shows", force: :cascade do |t|
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "shows", ["user_id"], name: "index_shows_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255,   default: "", null: false
     t.string   "encrypted_password",     limit: 255,   default: "", null: false
@@ -85,4 +93,5 @@ ActiveRecord::Schema.define(version: 20150508085727) do
   add_foreign_key "meetings", "users"
   add_foreign_key "meetusers", "meetings"
   add_foreign_key "meetusers", "users"
+  add_foreign_key "shows", "users"
 end

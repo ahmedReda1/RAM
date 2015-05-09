@@ -8,7 +8,7 @@
 </head>
 <body>
  <% if(current_user)%>
- <p> <img src="<%=current_user.avatar.url %>" height="100" width="100"> Welcome ya <%= current_user.nickname %> Nawart ^_^ </p>
+ <p> <img src="<%=current_user.avatar.url %>" height="100" width="100"> Welcome ya <strong> <%= link_to current_user.nickname ,  profiles_show_path(current_user.id) %> </strong> Nawart ^_^ </p>
  <% end %>
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
