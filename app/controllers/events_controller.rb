@@ -34,7 +34,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     @meeting = Meeting.find(params[:meeting_id])
-      if @meeting.events.update(event_params)
+      if @event.update(event_params)
+
         redirect_to meeting_path(@meeting)
         
       else
@@ -46,11 +47,10 @@ class EventsController < ApplicationController
   # DELETE /events/1
   # DELETE /events/1.json
   def destroy
+    @meeting = Meeting.find(params[:meeting_id])
     @event.destroy
-    respond_to do |format|
-      format.html { redirect_to events_url, notice: 'Event was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to meeting_path(@meeting)
+    
   end
 
   private

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150510071649) do
+ActiveRecord::Schema.define(version: 20150510171623) do
 
   create_table "commentevents", force: :cascade do |t|
     t.integer  "event_id",    limit: 4
@@ -47,6 +47,16 @@ ActiveRecord::Schema.define(version: 20150510071649) do
   end
 
   add_index "events", ["meeting_id"], name: "index_events_on_meeting_id", using: :btree
+
+  create_table "eventusers", force: :cascade do |t|
+    t.integer  "event_id",   limit: 4
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+  end
+
+  add_index "eventusers", ["event_id"], name: "index_eventusers_on_event_id", using: :btree
+  add_index "eventusers", ["user_id"], name: "index_eventusers_on_user_id", using: :btree
 
   create_table "meetings", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -117,6 +127,8 @@ ActiveRecord::Schema.define(version: 20150510071649) do
   add_foreign_key "comments", "meetings"
   add_foreign_key "comments", "users"
   add_foreign_key "events", "meetings"
+  add_foreign_key "eventusers", "events"
+  add_foreign_key "eventusers", "users"
   add_foreign_key "meetings", "users"
   add_foreign_key "meetusers", "meetings"
   add_foreign_key "meetusers", "users"

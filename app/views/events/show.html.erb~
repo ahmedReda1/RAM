@@ -30,6 +30,34 @@
   <%= @event.meeting.title %>
 </p>
 
+
+
+<! Join to Event to add comment -->
+<% if(@event.meeting.user_id!=current_user.id) %>
+<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@event.meeting_id) %>
+   <%  if(@meetuser) %>
+		
+<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
+       <%  if(!@eventuser) %>
+	
+		<%= form_for([@event,@event.eventusers.build]) do |f| %>
+		   <div class="field">
+		    <%= f.hidden_field :user_id, :value => current_user.id %>
+                    <%= f.hidden_field :event_id, :value => @event.id %>
+		  </div>
+		  <div class="actions">
+		    <%= f.submit %> Join Event 
+		  </div>
+		<% end %>
+
+       
+	
+	<% end %>
+  <% end %>
+  <% end %>
+
+
+
 <!-- list Comment -->
 <h2>Comments</h2>
 <% @event.commentevents.each do |comment| %>
@@ -51,7 +79,7 @@
 
    <%  if(comment.user_id==current_user.id) %>
 
-    <%= link_to 'Edit', edit_event_commentevent_path(@meeting,comment) ,:class=> 'btn btn-warning'%>
+    <%= link_to 'Edit', edit_event_commentevent_path(@event,comment) ,:class=> 'btn btn-warning'%>
     
  <% end %>
    
@@ -59,9 +87,8 @@
 
 
 
- <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@event.meeting_id) %>
-       <%  if(@meetuser) %>
-		<%  if(@meetuser.user_id==current_user.id) %>
+<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
+       <%  if(@eventuser) %>
  			<h2>Add a comment:</h2>
 			<%= form_for([@event, @event.commentevents.build]) do |f| %>
 			  <div class="field">	
@@ -78,5 +105,5 @@
 			    <%= f.submit %>
 			  </div>
 			<% end %>
-		<% end %>
-      <% end %>
+	<% end %>
+

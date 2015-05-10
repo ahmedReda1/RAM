@@ -32,3 +32,6 @@ rails g scaffold event title:string desc:text date:datetime place:string member:
 
 
 rails g scaffold commentevent commentbody:text
+
+
+bundle update

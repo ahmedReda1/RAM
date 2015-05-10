@@ -61,7 +61,11 @@
         <td><%= link_to 'Show', meeting_event_path(@meeting.id, event.id) %></td>
         <% if((@meeting.user_id==current_user.id) ) %>
 		<td><%= link_to 'Edit',  edit_meeting_event_path(@meeting.id, event) %></td>
+                 <td><%= link_to 'Destroy', meeting_event_path(@meeting.id, event),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } , class: "btn btn-danger remove_fields"%></td>
         <% end %>
+        
       </tr>
     <% end %>
   </tbody>
@@ -140,12 +144,4 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               meetings_path, :class => 'btn btn-default'  %>
-<%= link_to t('.edit', :default => t("helpers.links.edit")),
-              edit_meeting_path(@meeting), :class => 'btn btn-default' %>
-<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
-              meeting_path(@meeting),
-              :method => 'delete',
-              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
-              :class => 'btn btn-danger' %>
-
 
