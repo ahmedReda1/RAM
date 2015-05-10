@@ -11,7 +11,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150509080244) do
+ActiveRecord::Schema.define(version: 20150510071649) do
+
+  create_table "commentevents", force: :cascade do |t|
+    t.integer  "event_id",    limit: 4
+    t.integer  "user_id",     limit: 4
+    t.text     "commentbody", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  add_index "commentevents", ["event_id"], name: "index_commentevents_on_event_id", using: :btree
+  add_index "commentevents", ["user_id"], name: "index_commentevents_on_user_id", using: :btree
 
   create_table "comments", force: :cascade do |t|
     t.integer  "meeting_id",  limit: 4
@@ -23,6 +34,19 @@ ActiveRecord::Schema.define(version: 20150509080244) do
 
   add_index "comments", ["meeting_id"], name: "index_comments_on_meeting_id", using: :btree
   add_index "comments", ["user_id"], name: "index_comments_on_user_id", using: :btree
+
+  create_table "events", force: :cascade do |t|
+    t.string   "title",      limit: 255
+    t.text     "desc",       limit: 65535
+    t.datetime "date"
+    t.string   "place",      limit: 255
+    t.integer  "member",     limit: 4
+    t.integer  "meeting_id", limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "events", ["meeting_id"], name: "index_events_on_meeting_id", using: :btree
 
   create_table "meetings", force: :cascade do |t|
     t.string   "name",                limit: 255
@@ -88,8 +112,11 @@ ActiveRecord::Schema.define(version: 20150509080244) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "commentevents", "events"
+  add_foreign_key "commentevents", "users"
   add_foreign_key "comments", "meetings"
   add_foreign_key "comments", "users"
+  add_foreign_key "events", "meetings"
   add_foreign_key "meetings", "users"
   add_foreign_key "meetusers", "meetings"
   add_foreign_key "meetusers", "users"

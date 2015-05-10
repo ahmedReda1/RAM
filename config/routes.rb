@@ -1,7 +1,19 @@
 Rails.application.routes.draw do
 
+  
+ 
   get 'profiles/show/:id' => 'profiles#show' , :as=>'profiles_show'
+  get 'meeting/:meeting_id/event/:id' => 'events#show' , :as=>'meeting_event'
+  #get 'event/:event_id/commentevent/:id' => 'commentevents#destroy' , :as=>'event_commentevent'
+  delete 'event/:event_id/commentevent/:id' => 'commentevents#destroy' , :as=>'event_commentevent'  
 
+  patch 'event/:event_id/commentevent/:id', controller: 'commentevents', action: :update
+  put 'event/:event_id/commentevent/:id', controller: 'commentevents', action: :update
+
+  #patch '/events/:event_id/commentevents/:id/edit' => 'commentevents#edit ' , :as=>'edit_event_commentevent'  
+  #patch '/events/:event_id/commentevents/:id' => 'commentevents#update ' , :as=>'event_commentevent' 
+  #patch    '/events/:event_id/commentevents/:id'=>' commentevents#update' , :as=>'edit_event_commentevent'
+ # patch 'event/:event_id/commentevent/:id' => 'commentevents#update' , :as=>'event_commentevent'
   #resources :comments
   
   #resources :meetings
@@ -16,7 +28,16 @@ Rails.application.routes.draw do
   resources :meetings do
   	resources :comments
         resources :meetusers
+        
   end
+
+  resources :meetings do 
+	resources :events
+  end   
+
+  resources :events do 
+	resources :commentevents
+  end      
 
     resources :shows
 

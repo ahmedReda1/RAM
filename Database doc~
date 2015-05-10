@@ -22,3 +22,13 @@ rails g scaffold comment meeting:references user:references commentbody:text
 
 in comment model
 belongs_to :user
+
+
+
+xxxxxx rails g scaffold show user:references xxxxxxxx
+
+
+rails g scaffold event title:string desc:text date:datetime place:string member:integer meeting:references
+
+
+rails g scaffold commentevent commentbody:text

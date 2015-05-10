@@ -1,9 +1,16 @@
+<!-- Creat Event -->
+
+<% if((@meeting.user_id==current_user.id) ) %>
+	 <%= link_to "create Event" , new_meeting_event_path(@meeting.id)%> 
+<% end %>
+
 <%- model_class = Meeting -%>
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
 </div>
 
 
+<! -- list data about Group -->
 <dl class="dl-horizontal">
   <dt><strong><%= model_class.human_attribute_name(:name) %>:</strong></dt>
   <dd><%= @meeting.name %></dd>
@@ -20,14 +27,50 @@
   <dt><strong><%= model_class.human_attribute_name(:location) %>:</strong></dt>
   <dd><%= @meeting.location %></dd>
   <dt><strong> Admin:</strong></dt>
-  <dd><%  @user = User.find(@meeting.user_id)   %><%= @user.nickname %></dd>
+  <dd><%  @user = User.find(@meeting.user_id)   %><%= link_to @user.nickname , profiles_show_path(@user.id)%></dd>
   <dt><strong><%= model_class.human_attribute_name(:avatar) %>:</strong></dt>
   <dd><%= image_tag @meeting.avatar.url %>
   
 </dl>
 
-<%= link_to "Profile", profiles_show_path(@user.id)  %>
+<!-- list Event in this Group -->
+<h1>Listing Events</h1>
 
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Desc</th>
+      <th>Date</th>
+      <th>Place</th>
+      <th>Member</th>
+      <th>Meeting</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @meeting.events.each do |event| %>
+      <tr>
+        <td><%= event.title %></td>
+        <td><%= event.desc %></td>
+        <td><%= event.date %></td>
+        <td><%= event.place %></td>
+        <td><%= event.member %></td>
+        <td><%= event.meeting %></td>
+        <td><%= link_to 'Show', meeting_event_path(@meeting.id, event.id) %></td>
+        <% if((@meeting.user_id==current_user.id) ) %>
+		<td><%= link_to 'Edit',  edit_meeting_event_path(@meeting.id, event) %></td>
+        <% end %>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+
+<! Join to Group to add comment -->
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
        <%  if(!@meetuser) %>
 	
@@ -37,7 +80,7 @@
 		    <%= f.hidden_field :user_id, :value => current_user.id %>
 		  </div>
 		  <div class="actions">
-		    <%= f.submit %>
+		    <%= f.submit %> Join Group 
 		  </div>
 		<% end %>
 
@@ -45,14 +88,14 @@
 	<% end %>
 
 
-
+<!-- list Comment -->
 <h2>Comments</h2>
 <% @meeting.comments.each do |comment| %>
   <p>
     
      <%  @user = User.find(comment.user_id )  %>
    <img src="<%= @user.avatar.url %>" height="50" width="50">
-    <strong><%= link_to @user.nickname , profiles_show_path(@user.id)   %>:</strong>
+    <strong><%= link_to @user.nickname , profiles_show_path(@user.id)  %>:</strong>
   
     
     <%= comment.commentbody %>

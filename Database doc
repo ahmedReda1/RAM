@@ -25,4 +25,13 @@ belongs_to :user
 
 
 
-rails g scaffold show user:references
+xxxxxx rails g scaffold show user:references xxxxxxxx
+
+
+rails g scaffold event title:string desc:text date:datetime place:string member:integer meeting:references
+
+
+rails g scaffold commentevent commentbody:text
+
+
+bundle update

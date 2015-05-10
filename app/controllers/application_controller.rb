@@ -11,7 +11,9 @@ class ApplicationController < ActionController::Base
         def configure_permitted_parameters
             devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:nickname , :email, :password , :isfemale , :aboutme , :country , :avatar) }
             
+            #redirect_to(@user, :notice => 'User created')
       
 	end
+	#UserNotifier.send_signup_email(@user).deliver
 end
 
