@@ -1,0 +1,118 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @event.title %>
+</p>
+
+<p>
+  <strong>Desc:</strong>
+  <%= @event.desc %>
+</p>
+
+<p>
+  <strong>Date:</strong>
+  <%= @event.date %>
+</p>
+
+<p>
+  <strong>Place:</strong>
+  <%= @event.place %>
+</p>
+
+<p>
+  <strong>Member:</strong>
+  <%= @event.member %>
+</p>
+
+<p>
+  <strong>Meeting Title:</strong>
+  <%= @event.meeting.title %>
+</p>
+
+
+
+<! Join to Event to add comment -->
+<% if(@event.meeting.user_id!=current_user.id) %>
+<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@event.meeting_id) %>
+   <%  if(@meetuser) %>
+		
+<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
+       <%  if(!@eventuser) %>
+	
+		<%= form_for([@event,@event.eventusers.build]) do |f| %>
+		   <div class="field">
+		    <%= f.hidden_field :user_id, :value => current_user.id %>
+                    <%= f.hidden_field :event_id, :value => @event.id %>
+		  </div>
+		  <div class="actions">
+		    <%= f.submit %> Join Event 
+		  </div>
+		<% end %>
+
+       
+	
+	<% end %>
+  <% end %>
+  <% end %>
+
+
+
+<!-- list User in Events -->
+<h2>Users in Event</h2>
+<% @event.eventusers.each do |eventuser| %>
+  <p>
+     <a href="<%= profiles_show_path(eventuser.user_id) %>"><img src="<%= eventuser.user.avatar.url %>" height="50" width="50"></a> <br/>
+  </p>
+
+<% end %>
+
+<!-- list Comment -->
+<h2>Comments</h2>
+<% @event.commentevents.each do |comment| %>
+  <p>
+    
+    <%  @user = User.find(comment.user_id )  %>
+    <img src="<%= @user.avatar.url %>" height="50" width="50">
+    <strong><%= link_to @user.nickname , profiles_show_path(@user.id)  %>:</strong>
+  
+    
+    <%= comment.commentbody %>
+  </p>
+  <%  if(comment.user_id==current_user.id) %>
+
+    <%= link_to 'Destroy', event_commentevent_path(@event.id , comment),
+              method: :delete,
+              data: { confirm: 'Are you sure?' } , class: "btn btn-danger remove_fields"%>
+ <% end %>
+
+   <%  if(comment.user_id==current_user.id) %>
+
+    <%= link_to 'Edit', edit_event_commentevent_path(@event,comment) ,:class=> 'btn btn-warning'%>
+    
+ <% end %>
+   
+<% end %>
+
+
+
+<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
+       <%  if(@eventuser || @event.meeting.user_id == current_user.id )  %>
+ 			<h2>Add a comment:</h2>
+			<%= form_for([@event, @event.commentevents.build]) do |f| %>
+			  <div class="field">	
+			    <%= f.hidden_field :event_id %>
+			  </div>
+			  <div class="field">	
+			    <%= f.hidden_field :user_id, :value => current_user.id %>
+			  </div>
+			  <div class="field">
+			    <%= f.label :commentbody %><br>
+			    <%= f.text_area :commentbody %>
+			  </div>
+			  <div class="actions">
+			    <%= f.submit %>
+			  </div>
+			<% end %>
+	<% end %>
+

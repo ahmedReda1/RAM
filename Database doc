@@ -1,0 +1,40 @@
+rails g scaffold user name:string email:string password:string country:string isadmin:boolean aboutme:text
+
+rake db:migrate
+
+rails g scaffold meeting name:string title:string membername:string date:datetime limit:integer desc:text location:string user:references
+
+
+in meeting model
+belongs_to :user
+
+rake db:migrate
+
+
+rails g scaffold meetinguser meeting:references user:references
+
+in meetinguser model
+has_many :users, :dependent => :destroy
+has_many :meetings, :dependent => :destroy
+
+
+rails g scaffold comment meeting:references user:references commentbody:text
+
+in comment model
+belongs_to :user
+
+
+
+xxxxxx rails g scaffold show user:references xxxxxxxx
+
+
+rails g scaffold event title:string desc:text date:datetime place:string member:integer meeting:references
+
+
+rails g scaffold commentevent commentbody:text
+
+
+rails g scaffold eventuser event:references user:references
+
+
+bundle update

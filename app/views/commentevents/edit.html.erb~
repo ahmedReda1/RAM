@@ -1,0 +1,6 @@
+<h1>Editing Commentevent</h1>
+
+<%= render 'form' %>
+
+<%= link_to 'Show', @commentevent %> |
+<%= link_to 'Back', commentevents_path %>

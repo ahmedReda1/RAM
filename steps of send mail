@@ -1,0 +1,4 @@
+ https://sendgrid.com/docs/Integrate/Frameworks/rubyonrails.html
+
+
+rails generate mailer UserNotifier

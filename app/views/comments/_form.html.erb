@@ -1,4 +1,4 @@
-<%= form_for @comment, :html => { :class => "form-horizontal comment" } do |f| %>
+<%= form_for :comment, url: meeting_comment_path(@comment.meeting_id,@comment), method: :patch do |f| %>
 
   <% if @comment.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
@@ -41,7 +41,7 @@
     <div class="col-lg-offset-2 col-lg-10">
       <%= f.submit nil, :class => 'btn btn-primary' %>
       <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                comments_path, :class => 'btn btn-default' %>
+                meeting_path(@comment.meeting_id), :class => 'btn btn-default' %>
     </div>
   </div>
 

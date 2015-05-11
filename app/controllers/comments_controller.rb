@@ -24,41 +24,31 @@ class CommentsController < ApplicationController
   # POST /comments
   # POST /comments.json
   def create
-    @comment = Comment.new(comment_params)
+    @meeting = Meeting.find(params[:meeting_id])
+    @comment = @meeting.comments.create(comment_params)
+    redirect_to meeting_path(@meeting)
 
-    respond_to do |format|
-      if @comment.save
-        format.html { redirect_to @comment, notice: 'Comment was successfully created.' }
-        format.json { render :show, status: :created, location: @comment }
-      else
-        format.html { render :new }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
   # PATCH/PUT /comments/1
   # PATCH/PUT /comments/1.json
   def update
-    respond_to do |format|
+      @meeting = Meeting.find(params[:meeting_id])
       if @comment.update(comment_params)
-        format.html { redirect_to @comment, notice: 'Comment was successfully updated.' }
-        format.json { render :show, status: :ok, location: @comment }
+        redirect_to @meeting
+        
       else
-        format.html { render :edit }
-        format.json { render json: @comment.errors, status: :unprocessable_entity }
+        render 'edit'
+        
       end
-    end
   end
 
   # DELETE /comments/1
   # DELETE /comments/1.json
   def destroy
+    @meeting = Meeting.find(params[:meeting_id])
     @comment.destroy
-    respond_to do |format|
-      format.html { redirect_to comments_url, notice: 'Comment was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to meeting_path(@meeting)
   end
 
   private

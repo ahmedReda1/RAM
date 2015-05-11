@@ -32,6 +32,7 @@ class MeetingsController < ApplicationController
   # POST /meetings
   # POST /meetings.json
   def create
+    @user = User.find(params[:user_name])
     @meeting = Meeting.new(meeting_params)
 
     respond_to do |format|
@@ -77,6 +78,6 @@ class MeetingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def meeting_params
-      params.require(:meeting).permit(:name, :title, :membername, :date, :limit, :desc, :location, :user_id , :avatar )
+      params.require(:meeting).permit(:name, :title, :membername, :date, :limit, :desc, :location, @user.id , :avatar )
     end
 end

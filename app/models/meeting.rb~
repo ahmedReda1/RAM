@@ -1,9 +1,15 @@
 class Meeting < ActiveRecord::Base
 	#for meeting admin   
 	belongs_to :user
+<<<<<<< HEAD
 	#search dont remove
-	searchkick 
+	searchkick
 
+=======
+        has_many :comments, :dependent => :destroy
+        has_many :meetusers, :dependent => :destroy
+        has_many :events, :dependent => :destroy
+>>>>>>> 02783bb04811fd5047af4609aaa53338cab6fcf5
 	has_attached_file :avatar 
   	validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]
 end

@@ -1,0 +1,23 @@
+<p id="notice"><%= notice %></p>
+
+
+<%= form_for(@show) do |f| %>
+
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.hidden_field :user_id %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+
+<p>
+  <strong>User:</strong>
+  <%= @show.user.nickname %>
+</p>
+
+<%= link_to 'Edit', edit_show_path(@show) %> |
+<%= link_to 'Back', shows_path %>

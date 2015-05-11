@@ -1,0 +1,42 @@
+in terminal 
+-----------
+rails generate controller Profiles show
+
+
+in profile_control
+-------------------
+class ProfilesController < ApplicationController
+  def show
+	 @user = User.find(params[:id])
+  end
+
+   def not_found
+    raise ActionController::RoutingError.new('User Not Found')
+   end
+end
+
+
+in show view of profile control
+----------------------------------
+<h1>Profile</h1>
+<h3><%= @user.nickname %></h3>
+<h3><%= image_tag @user.avatar.url %></h3>
+<h3><%= @user.email %></h3>
+<h3><%= @user.aboutme %></h3>
+<h3><%= @user.country %></h3>
+<% if(@user.isfemale) %>
+	<h3>female</h3>
+<% else %>
+	<h3>mela</h3>
+<% end %>
+
+
+
+in route file
+--------------
+get 'profiles/show/:id' => 'profiles#show' , :as=>'profiles_show'
+
+
+in any view :
+----------------
+ <strong><%= link_to @user.nickname , profiles_show_path(@user.id)  %>:</strong>
