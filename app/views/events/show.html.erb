@@ -58,6 +58,15 @@
 
 
 
+<!-- list User in Events -->
+<h2>Users in Event</h2>
+<% @event.eventusers.each do |eventuser| %>
+  <p>
+     <a href="<%= profiles_show_path(eventuser.user_id) %>"><img src="<%= eventuser.user.avatar.url %>" height="50" width="50"></a> <br/>
+  </p>
+
+<% end %>
+
 <!-- list Comment -->
 <h2>Comments</h2>
 <% @event.commentevents.each do |comment| %>

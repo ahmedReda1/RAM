@@ -74,6 +74,8 @@
 <br>
 
 
+
+
 <! Join to Group to add comment -->
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
        <%  if(!@meetuser) %>
@@ -90,6 +92,17 @@
 
        
 	<% end %>
+
+
+
+<!-- list Users in Group -->
+<h2>Users in Group</h2>
+<% @meeting.meetusers.each do |meetuser| %>
+  
+     <a href="<%= profiles_show_path(meetuser.user_id) %>"><img src="<%= meetuser.user.avatar.url %>" height="50" width="50"></a> 
+  
+
+<% end %>
 
 
 <!-- list Comment -->
