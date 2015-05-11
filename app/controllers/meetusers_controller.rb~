@@ -25,18 +25,11 @@ class MeetusersController < ApplicationController
   # POST /meetusers.json
   def create
     @meeting = Meeting.find(params[:meeting_id])
-               @meeting.meetusers.create(meetuser_params)
-    @meetuser = Meetuser.new(meetuser_params)
-
-    respond_to do |format|
-      if @meetuser.save
-        format.html { redirect_to @meetuser, notice: 'Meetuser was successfully created.' }
-        format.json { render :show, status: :created, location: @meetuser }
-      else
-        format.html { render :new }
-        format.json { render json: @meetuser.errors, status: :unprocessable_entity }
-      end
-    end
+    @meetuser = @meeting.meetusers.create(meetuser_params)
+    x=@meeting.limit+1
+   # Meeting.where(params[:meeting_id]).limit(1).update_all(:limit=>"2")
+    @meeting.update(:limit=>"5")
+     redirect_to meeting_path(@meeting)
   end
 
   # PATCH/PUT /meetusers/1

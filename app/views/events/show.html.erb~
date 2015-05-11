@@ -38,7 +38,7 @@
    <%  if(@meetuser) %>
 		
 <%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
-       <%  if(!@eventuser) %>
+       <%  if(!@eventuser && current_user.id != @event.meeting.user_id) %>
 	
 		<%= form_for([@event,@event.eventusers.build]) do |f| %>
 		   <div class="field">
@@ -46,7 +46,7 @@
                     <%= f.hidden_field :event_id, :value => @event.id %>
 		  </div>
 		  <div class="actions">
-		    <%= f.submit %> Join Event 
+		    <%= f.submit "Join to Event" %> 
 		  </div>
 		<% end %>
 
@@ -59,12 +59,14 @@
 
 
 <!-- list User in Events -->
+<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
+       <%  if(@eventuser) %>
 <h2>Users in Event</h2>
 <% @event.eventusers.each do |eventuser| %>
-  <p>
-     <a href="<%= profiles_show_path(eventuser.user_id) %>"><img src="<%= eventuser.user.avatar.url %>" height="50" width="50"></a> <br/>
-  </p>
-
+ 
+     <a href="<%= profiles_show_path(eventuser.user_id) %>"><img src="<%= eventuser.user.avatar.url %>" height="50" width="50"></a>
+  
+<% end %>
 <% end %>
 
 <!-- list Comment -->

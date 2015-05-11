@@ -39,7 +39,7 @@
   <div class="form-group">
     <%= f.label :date, :class => 'control-label col-lg-2' %>
     <div class="col-lg-10">
-      <%= f.text_field :date, :class => 'form-control' %>
+      <%= f.datetime_select :date, :class => 'form-control' %>
     </div>
     <%=f.error_span(:date) %>
   </div>
@@ -66,9 +66,9 @@
     <%=f.error_span(:location) %>
   </div>
   <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
+    
     <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
+      <%= f.hidden_field :user_id, :value => current_user.id, :class => 'form-control' %>
     </div>
     <%=f.error_span(:user_id) %>
   </div>
@@ -76,9 +76,10 @@
 
 
 <div class="form-group">
-		<div class="field">
-  		<%= f.label :Avatar %><br />
-   		<%= f.file_field :avatar %>
+       
+  		<%= f.label :Avatar , :class => 'control-label col-lg-2'%><br />
+<div class="col-lg-10">
+   		<%= f.file_field :avatar, :class => 'form-control' %>
     	</div>
       </div>
 

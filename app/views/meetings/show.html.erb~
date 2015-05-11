@@ -33,7 +33,10 @@
   
 </dl>
 
+
 <!-- list Event in this Group -->
+<%  @event = Event.find_by_meeting_id(@meeting.id) %>
+<% if (!@event)%>
 <h1>Listing Events</h1>
 
 <table>
@@ -57,7 +60,7 @@
         <td><%= event.date %></td>
         <td><%= event.place %></td>
         <td><%= event.member %></td>
-        <td><%= event.meeting %></td>
+        <td><%= event.meeting.title %></td>
         <td><%= link_to 'Show', meeting_event_path(@meeting.id, event.id) %></td>
         <% if((@meeting.user_id==current_user.id) ) %>
 		<td><%= link_to 'Edit',  edit_meeting_event_path(@meeting.id, event) %></td>
@@ -72,13 +75,13 @@
 </table>
 
 <br>
-
+  <% end %>
 
 
 
 <! Join to Group to add comment -->
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
-       <%  if(!@meetuser) %>
+       <%  if(!@meetuser && current_user.id != @meeting.user_id) %>
 	
 
 		<%= form_for([@meeting,@meeting.meetusers.build]) do |f| %>
@@ -86,7 +89,7 @@
 		    <%= f.hidden_field :user_id, :value => current_user.id %>
 		  </div>
 		  <div class="actions">
-		    <%= f.submit %> Join Group 
+		    <%= f.submit "Join"%> 
 		  </div>
 		<% end %>
 
@@ -96,12 +99,16 @@
 
 
 <!-- list Users in Group -->
+<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
+       <%  if(@meetuser) %>
 <h2>Users in Group</h2>
 <% @meeting.meetusers.each do |meetuser| %>
-  <p>
-     <a href="<%= profiles_show_path(meetuser.user_id) %>"><img src="<%= meetuser.user.avatar.url %>" height="50" width="50"></a> 
-  </p>
-
+    
+  
+   <a href="<%= profiles_show_path(meetuser.user_id) %>"><img src="<%= meetuser.user.avatar.url %>" height="50" width="50"></a> 
+  
+  
+<% end %>
 <% end %>
 
 

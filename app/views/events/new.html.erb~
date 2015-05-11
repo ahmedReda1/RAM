@@ -2,6 +2,18 @@
 <% @meeting = Meeting.find(params[:meeting_id]) %>
 <%= form_for([@meeting, @meeting.events.build]) do |f| %>
 
+ <% if @event.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@event.errors.count, "error") %> prohibited this event from being saved:</h2>
+
+      <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -19,12 +31,12 @@
     <%= f.text_field :place %>
   </div>
   <div class="field">
-    <%= f.label :member %><br>
-    <%= f.number_field :member %>
+    
+    <%= f.hidden_field :member ,:value => 1 %>
   </div>
   <div class="field">
-    <%= f.label :meeting_id %><br>
-    <%= f.text_field :meeting_id %>
+    
+    <%= f.hidden_field :meeting_id  %>
   </div>
   <div class="actions">
     <%= f.submit %>

@@ -26,7 +26,9 @@ class MeetusersController < ApplicationController
   def create
     @meeting = Meeting.find(params[:meeting_id])
     @meetuser = @meeting.meetusers.create(meetuser_params)
-    
+    x=@meeting.limit+1
+   # Meeting.where(params[:meeting_id]).limit(1).update_all(:limit=>"2")
+    @meeting.update(:limit=>x)
      redirect_to meeting_path(@meeting)
   end
 

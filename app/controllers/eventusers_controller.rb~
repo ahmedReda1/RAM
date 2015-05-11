@@ -24,10 +24,8 @@ class EventusersController < ApplicationController
   # POST /eventusers
   # POST /eventusers.json
   def create
-   
-
+    @eventuser = Eventuser.new(eventuser_params)
     @event = Event.find(params[:event_id])
-     @eventuser = @event.eventusers.create(eventuser_params)
     x=@event.member+1
     @event.update(:member=>x)
     redirect_to meeting_event_path(@event.meeting_id,@event.id)
