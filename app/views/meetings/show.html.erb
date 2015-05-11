@@ -1,7 +1,8 @@
 <!-- Creat Event -->
-
-<% if((@meeting.user_id==current_user.id) ) %>
-	 <%= link_to "create Event" , new_meeting_event_path(@meeting.id)%> 
+<% if(current_user)%>
+	<% if((@meeting.user_id==current_user.id) ) %>
+		 <%= link_to "create Event" , new_meeting_event_path(@meeting.id)%> 
+	<% end %>
 <% end %>
 
 <%- model_class = Meeting -%>
@@ -62,13 +63,14 @@
         <td><%= event.member %></td>
         <td><%= event.meeting.title %></td>
         <td><%= link_to 'Show', meeting_event_path(@meeting.id, event.id) %></td>
+        <% if(current_user)%>
         <% if((@meeting.user_id==current_user.id) ) %>
 		<td><%= link_to 'Edit',  edit_meeting_event_path(@meeting.id, event) %></td>
                  <td><%= link_to 'Destroy', meeting_event_path(@meeting.id, event),
               method: :delete,
               data: { confirm: 'Are you sure?' } , class: "btn btn-danger remove_fields"%></td>
         <% end %>
-        
+         <% end %>
       </tr>
     <% end %>
   </tbody>
@@ -80,25 +82,28 @@
 
 
 <! Join to Group to add comment -->
-<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
-       <%  if(!@meetuser && current_user.id != @meeting.user_id) %>
+<% if(current_user)%>
+	<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
+	       <%  if(!@meetuser && current_user.id != @meeting.user_id) %>
 	
 
-		<%= form_for([@meeting,@meeting.meetusers.build]) do |f| %>
-		   <div class="field">
-		    <%= f.hidden_field :user_id, :value => current_user.id %>
-		  </div>
-		  <div class="actions">
-		    <%= f.submit "Join"%> 
-		  </div>
-		<% end %>
+			<%= form_for([@meeting,@meeting.meetusers.build]) do |f| %>
+			   <div class="field">
+			    <%= f.hidden_field :user_id, :value => current_user.id %>
+			  </div>
+			  <div class="actions">
+			    <%= f.submit "Join"%> 
+			  </div>
+			<% end %>
 
-       
-	<% end %>
+	       
+		<% end %>
+<% end %>
 
 
 
 <!-- list Users in Group -->
+<% if(current_user)%>
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
        <%  if(@meetuser) %>
 <h2>Users in Group</h2>
@@ -108,6 +113,7 @@
    <a href="<%= profiles_show_path(meetuser.user_id) %>"><img src="<%= meetuser.user.avatar.url %>" height="50" width="50"></a> 
   
   
+<% end %>
 <% end %>
 <% end %>
 
@@ -124,6 +130,7 @@
     
     <%= comment.commentbody %>
   </p>
+<% if(current_user)%>
   <%  if(comment.user_id==current_user.id) %>
 
     <%= link_to 'Destroy', meeting_comment_path(@meeting,comment),
@@ -138,8 +145,9 @@
  <% end %>
    
 <% end %>
-
+<% end %>
 <!-- Add Comment -->
+<% if(current_user)%>
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@meeting.id) %>
        <%  if(@meetuser) %>
 	<%  if(@meetuser.user_id==current_user.id) %>
@@ -158,7 +166,7 @@
 	<% end %>
         <% end %>
 <% end %>
-
+<% end %>
 
 
 

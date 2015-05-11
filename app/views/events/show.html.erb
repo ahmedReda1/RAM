@@ -33,6 +33,7 @@
 
 
 <! Join to Event to add comment -->
+  <% if(current_user)%>
 <% if(@event.meeting.user_id!=current_user.id) %>
 <%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@event.meeting_id) %>
    <%  if(@meetuser) %>
@@ -55,10 +56,11 @@
 	<% end %>
   <% end %>
   <% end %>
-
+  <% end %>
 
 
 <!-- list User in Events -->
+ <% if(current_user)%>
 <%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
        <%  if(@eventuser) %>
 <h2>Users in Event</h2>
@@ -68,7 +70,7 @@
   
 <% end %>
 <% end %>
-
+<% end %>
 <!-- list Comment -->
 <h2>Comments</h2>
 <% @event.commentevents.each do |comment| %>
@@ -81,6 +83,7 @@
     
     <%= comment.commentbody %>
   </p>
+   <% if(current_user)%>
   <%  if(comment.user_id==current_user.id) %>
 
     <%= link_to 'Destroy', event_commentevent_path(@event.id , comment),
@@ -95,9 +98,10 @@
  <% end %>
    
 <% end %>
-
+<% end %>
 
 <!-- Add Comment -->
+<% if(current_user)%>
 <%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
        <%  if(@eventuser || @event.meeting.user_id == current_user.id )  %>
  			<h2>Add a comment:</h2>
@@ -117,4 +121,4 @@
 			  </div>
 			<% end %>
 	<% end %>
-
+<% end %>

@@ -50,7 +50,8 @@
     <% end %>
   </tbody>
 </table>
-
+<% if(current_user)%>
 <%= link_to t('.new', :default => t("helpers.links.new")),
             new_meeting_path,
             :class => 'btn btn-primary' %>
+<% end %>
