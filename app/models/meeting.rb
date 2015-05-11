@@ -1,6 +1,8 @@
 class Meeting < ActiveRecord::Base
 	#for meeting admin   
 	belongs_to :user
+	#search dont remove
+	searchkick
 
 	has_attached_file :avatar 
   	validates_attachment_content_type :avatar, :content_type => ["image/jpg", "image/jpeg", "image/png", "image/gif"]

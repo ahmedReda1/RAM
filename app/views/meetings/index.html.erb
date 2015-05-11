@@ -2,6 +2,12 @@
 <div class="page-header">
   <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
 </div>
+
+<%= form_tag meetings_path, :method => :get do %> 
+    <%= text_field_tag :query, params[:query] %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
 <table class="table table-striped">
   <thead>
     <tr>
@@ -32,9 +38,9 @@
         <td><%= meeting.user_id %></td>
         <td>
           <%= link_to 'Show', meeting ,:class => 'btn btn-info btn-sm'%>
-          <%= link_to t('.edit', :default => t("helpers.links.edit")),
+          <%= link_to if can? t('.edit', :default => t("helpers.links.edit")),
                       edit_meeting_path(meeting), :class => 'btn btn-default btn-sm' %>
-          <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+          <%= link_to if can? t('.destroy', :default => t("helpers.links.destroy")),
                       meeting_path(meeting),
                       :method => :delete,
                       :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
