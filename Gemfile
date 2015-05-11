@@ -38,7 +38,9 @@ gem "searchkick"
 #gem 'elasticsearch-rails'
 
 #twitter bootstrap
+#gem 'twitter-bootstrap-rails' :git => 'https://github.com/seyhunak/twitter-bootstrap-rails.git', :branch => 'master'
 gem 'twitter-bootstrap-rails'
+
 #country gem
 gem 'country_select'
 #image upload

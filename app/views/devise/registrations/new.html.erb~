@@ -10,7 +10,7 @@
 <!-- email -->
   <div class="field">
     <%= f.label :Email %><br />
-    <%= f.email_field :email, autofocus: true  %>
+    <%= f.email_field :email, autofocus: true %>
   </div>
 <!-- password -->
   <div class="field">

@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
   protected
 
         def configure_permitted_parameters
-            devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:nickname , :email, :password , :isfemale , :aboutme , :country , :avatar) }
+            devise_parameter_sanitizer.for(:sign_up) { |u| u.perm(:nickname , :email , :password , :isfemale , :aboutme , :country , :avatar) }
             
             #redirect_to(@user, :notice => 'User created')
       
