@@ -1,4 +1,5 @@
 # Use this hook to configure devise mailer, warden hooks and so forth.
+
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
   # The secret key used by Devise. Devise uses this key to generate
@@ -20,6 +21,10 @@ Devise.setup do |config|
   # :mongoid (bson_ext recommended) by default. Other ORMs may be
   # available as additional gems.
   require 'devise/orm/active_record'
+
+  #facebook login
+  require "omniauth-facebook"
+  config.omniauth :facebook, "1561127940813331", "a2336ace68e3d338ad02f1ef8ccdd6f9"
 
   # ==> Configuration for any authentication mechanism
   # Configure which keys are used when authenticating a user. The default is
