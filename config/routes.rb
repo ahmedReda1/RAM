@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
 
-  
- 
+  resources :comments
+  resources :meetusers
+  resources :meetings 
   resources :eventusers
   get 'profiles/show/:id' => 'profiles#show' , :as=>'profiles_show'
   get 'meeting/:meeting_id/event/:id' => 'events#show' , :as=>'meeting_event'

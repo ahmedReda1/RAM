@@ -29,6 +29,14 @@ gem 'devise'
 gem 'omniauth'
 gem 'omniauth-digitalocean'
 
+#cancancan
+gem 'cancancan', '~> 1.10'
+
+#elastic search
+gem "searchkick"
+#gem 'elasticsearch-model'
+#gem 'elasticsearch-rails'
+
 #twitter bootstrap
 gem 'twitter-bootstrap-rails', :git => 'git://github.com/seyhunak/twitter-bootstrap-rails.git'
 #country gem
@@ -56,7 +64,5 @@ group :development, :test do
   gem 'web-console', '~> 2.0'
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  #gem 'spring'
-  gem 'spring', '~> 1.3.5'
 end
 

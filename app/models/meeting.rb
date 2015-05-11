@@ -1,6 +1,10 @@
 class Meeting < ActiveRecord::Base
 	#for meeting admin   
 	belongs_to :user
+
+	#search dont remove
+	searchkick
+
         has_many :comments, :dependent => :destroy
         has_many :meetusers, :dependent => :destroy
         has_many :events, :dependent => :destroy

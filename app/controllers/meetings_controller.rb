@@ -1,10 +1,18 @@
 class MeetingsController < ApplicationController
-  before_action :set_meeting, only: [:show, :edit, :update, :destroy]
+  before_action :set_meeting, only: [:show, :edit, :update, :destroy ,:query ]
 
   # GET /meetings
   # GET /meetings.json
   def index
     @meetings = Meeting.all
+	##########search#########	
+	if params[:query].present?
+      @meetings = Meeting.search(params[:query], page: params[:page])
+	else
+      @meetings = present?
+      @meetings = Meeting.all
+    end
+	###########search###########
   end
 
   # GET /meetings/1
