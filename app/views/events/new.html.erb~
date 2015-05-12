@@ -71,3 +71,6 @@
             events_path, :class => 'btn btn-default' %>
 
 <% end %>
+</div>
+</div>
+</div>

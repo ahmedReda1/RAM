@@ -1,5 +1,14 @@
-z<%- model_class = Meeting -%>
+<div class="container">
+<div class="row">
+<div class=" col-md-8 panel panel-default">
+<form>
+<%- model_class = Meeting -%>
 <div class="page-header">
   <h1><%=t '.title', :default => [:'helpers.titles.new', 'New %{model}'], :model => model_class.model_name.human.titleize %></h1>
 </div>
+</div>
+</form>
 <%= render :partial => 'form' %>
+</div>
+</div>
+</div>

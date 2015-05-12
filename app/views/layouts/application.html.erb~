@@ -8,17 +8,28 @@
 </head>
 <body>
 <div class="container">
-<div class="row">
-<div class="col-xs-offset-4">
- <% if(current_user)%>
- <p> <img src="<%=current_user.avatar.url %>" height="100" width="100"> Welcome ya <strong> <%= link_to current_user.nickname ,  profiles_show_path(current_user.id) %> </strong> Nawart ^_^ </p>
- <% end %>
+<header class="navbar navbar-fixed-top navbar-inverse">
+   <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   '#' %></li>
+            <li><%= link_to "Log in", '#' %></li>
+	    <% if(current_user)%>
+	       <li> <img src="<%=current_user.avatar.url %>" height="35" width="35"> </li>
+	       <li> Welcome <strong> <%= link_to current_user.nickname,profiles_show_path(current_user.id) %> </strong></li>
+		 <% end %>
+          </ul>
+        </nav>
+</header>
+</div>
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
 <%= yield %>
+
 </div>
-</div>
-</div>
+
 </body>
 </html>
+
+
+
 

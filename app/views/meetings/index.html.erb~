@@ -20,7 +20,6 @@
   <tbody>
     <% @meetings.each do |meeting| %>
       <tr>
-        <td><%= link_to meeting.id, meeting_path(meeting) %></td>
         <td><%= meeting.name %></td>
         <td><%= meeting.title %></td>
         <td><%= meeting.date %></td>
@@ -30,7 +29,7 @@
         <td>
  
           <%= link_to t('.edit', :default => t("helpers.links.edit")),
-                      edit_meeting_path(meeting), :class => 'btn btn-default btn-xs' %>
+                      edit_meeting_path(meeting), :class => 'btn btn-warning btn-xs' %>
           <%= link_to t('.destroy', :default => t("helpers.links.destroy")),
                       meeting_path(meeting),
                       :method => :delete,

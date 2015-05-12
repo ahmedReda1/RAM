@@ -1,4 +1,7 @@
 <!-- Creat Event -->
+<div class="container">
+<div class="row">
+<div class=" col-md-8 panel panel-default">
 <% if(current_user)%>
   <% if((@meeting.user_id==current_user.id) ) %>
      <%= link_to "create Event" , new_meeting_event_path(@meeting.id)%> 
@@ -40,7 +43,7 @@
   <thead>
     <tr>
       <th>Title</th>
-      <th>Desc</th>
+      <th>Descr</th>
       <th>Data</th>
       <th>Place</th>
       <th>Member</th>
@@ -168,4 +171,7 @@
 
 <%= link_to t('.back', :default => t("helpers.links.back")),
               meetings_path, :class => 'btn btn-default'  %>
+</div>
+</div>
+</div>
 
