@@ -7,22 +7,18 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<div class="container">
+<div class="row">
+<div class="col-xs-offset-1">
  <% if(current_user)%>
  <p> <img src="<%=current_user.avatar.url %>" height="100" width="100"> Welcome ya <strong> <%= link_to current_user.nickname ,  profiles_show_path(current_user.id) %> </strong> Nawart ^_^ </p>
  <% end %>
  <p class="notice"><%= notice %></p>
  <p class="alert"><%= alert %></p>
-
-<% if user_signed_in? %>
-Signed in as <%= current_user.nickname %>. Not you?
-<%= link_to "Sign out", destroy_user_session_path,:method => :delete %>
-<% else %>
-<%= link_to "Sign up", new_user_registration_path %> or
-<%= link_to "Sign in", new_user_session_path %>
-<%= link_to "Sign in with Facebook", user_omniauth_authorize_path(:facebook) %>
-<% end %>
-
 <%= yield %>
-
+</div>
+</div>
+</div>
 </body>
 </html>
+

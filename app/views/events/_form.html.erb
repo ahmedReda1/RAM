@@ -1,3 +1,6 @@
+<div class="container">
+<div class="row">
+<div class="col-xs-offset-4">
 <%= form_for :event, url: meeting_event_path(@event.meeting_id,@event), method: :patch do |f|%>
 
     <% if @event.errors.any? %>
@@ -64,3 +67,6 @@
             events_path, :class => 'btn btn-default' %>
 
 <% end %>
+</div>
+</div>
+</div>

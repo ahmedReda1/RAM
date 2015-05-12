@@ -1,6 +1,9 @@
+<div class="container">
+<div class="row">
+<div class="col-sm-offset-1">
 <%= form_for @meeting, :html => { :class => "form-horizontal meeting" } do |f| %>
 
-  <% if @meeting.errors.any? %>
+    <% if @meeting.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@meeting.errors.count, "error") %> prohibited this meeting from being saved:</h3>
@@ -15,67 +18,64 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :name, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :name, :class => 'control-label' %>
+    <div class="controls">
       <%= f.text_field :name, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:name) %>
+    <%= error_span(@meeting[:name]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :title, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :title, :class => 'control-label' %>
+    <div class="controls">
       <%= f.text_field :title, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:title) %>
+    <%= error_span(@meeting[:title]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :membername, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :membername, :class => 'control-label' %>
+    <div class="controls">
       <%= f.text_field :membername, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:membername) %>
+    <%= error_span(@meeting[:membername]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :date, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :date, :class => 'control-label' %>
+    <div class="controls">
       <%= f.datetime_select :date, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:date) %>
+    <%= error_span(@meeting[:date]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :limit, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :limit, :class => 'form-control' %>
+  <div class="control-group">
+    
+    <div class="controls">
+      <%= f.hidden_field :limit, :value => 0 ,:class => 'form-control' %>
     </div>
-    <%=f.error_span(:limit) %>
+    <%= error_span(@meeting[:limit]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :desc, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :desc, :class => 'control-label' %>
+    <div class="controls">
       <%= f.text_field :desc, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:desc) %>
+    <%= error_span(@meeting[:desc]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :location, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.country_select(:location, {selected: @meeting.location}) %>
-    
+  <div class="control-group">
+    <%= f.label :location, :class => 'control-label' %>
+    <div class="controls">
+      <%= f.text_field :location, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:location) %>
+    <%= error_span(@meeting[:location]) %>
   </div>
-  <div class="form-group">
+  <div class="control-group">
     
-    <div class="col-lg-10">
-      <%= f.hidden_field :user_id, :value => current_user.id, :class => 'form-control' %>
+    <div class="controls">
+      <%= f.hidden_field :user_id, :value => current_user.id ,:class => 'form-control' %>
     </div>
-    <%=f.error_span(:user_id) %>
+    <%= error_span(@meeting[:user_id]) %>
   </div>
-
-
-
-<div class="form-group">
+  
+  <div class="form-group">
        
   		<%= f.label :Avatar , :class => 'control-label col-lg-2'%><br />
 <div class="col-lg-10">
@@ -84,13 +84,12 @@
       </div>
 
 
-
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                meetings_path, :class => 'btn btn-default' %>
-    </div>
-  </div>
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            meetings_path, :class => 'btn btn-default' %>
 
 <% end %>
+</div>
+</div>
+ </div>
+

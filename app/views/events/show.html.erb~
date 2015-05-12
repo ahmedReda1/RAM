@@ -1,123 +1,35 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+<div class="row">
+<div class="col-xs-offset-4">
+<%- model_class = Event -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.titleize %></h1>
+</div>
 
-<p>
-  <strong>Title:</strong>
-  <%= @event.title %>
-</p>
+<dl class="dl-horizontal">
+  <dt><strong><%= model_class.human_attribute_name(:title) %>:</strong></dt>
+  <dd><%= @event.title %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:desc) %>:</strong></dt>
+  <dd><%= @event.desc %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:date) %>:</strong></dt>
+  <dd><%= @event.date %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:place) %>:</strong></dt>
+  <dd><%= @event.place %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:member) %>:</strong></dt>
+  <dd><%= @event.member %></dd>
+  <dt><strong><%= model_class.human_attribute_name(:meeting_id) %>:</strong></dt>
+  <dd><%= @event.meeting_id %></dd>
+</dl>
 
-<p>
-  <strong>Desc:</strong>
-  <%= @event.desc %>
-</p>
-
-<p>
-  <strong>Date:</strong>
-  <%= @event.date %>
-</p>
-
-<p>
-  <strong>Place:</strong>
-  <%= @event.place %>
-</p>
-
-<p>
-  <strong>Member:</strong>
-  <%= @event.member %>
-</p>
-
-<p>
-  <strong>Meeting Title:</strong>
-  <%= @event.meeting.title %>
-</p>
-
-
-
-<! Join to Event to add comment -->
-  <% if(current_user)%>
-<% if(@event.meeting.user_id!=current_user.id) %>
-<%  @meetuser = Meetuser.find_by_user_id_and_meeting_id(current_user.id,@event.meeting_id) %>
-   <%  if(@meetuser) %>
-		
-<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
-       <%  if(!@eventuser && current_user.id != @event.meeting.user_id) %>
-	
-		<%= form_for([@event,@event.eventusers.build]) do |f| %>
-		   <div class="field">
-		    <%= f.hidden_field :user_id, :value => current_user.id %>
-                    <%= f.hidden_field :event_id, :value => @event.id %>
-		  </div>
-		  <div class="actions">
-		    <%= f.submit "Join to Event" %> 
-		  </div>
-		<% end %>
-
-       
-	
-	<% end %>
-  <% end %>
-  <% end %>
-  <% end %>
-
-
-<!-- list User in Events -->
- <% if(current_user)%>
-<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
-       <%  if(@eventuser) %>
-<h2>Users in Event</h2>
-<% @event.eventusers.each do |eventuser| %>
- 
-     <a href="<%= profiles_show_path(eventuser.user_id) %>"><img src="<%= eventuser.user.avatar.url %>" height="50" width="50"></a>
-  
-<% end %>
-<% end %>
-<% end %>
-<!-- list Comment -->
-<h2>Comments</h2>
-<% @event.commentevents.each do |comment| %>
-  <p>
-    
-    <%  @user = User.find(comment.user_id )  %>
-    <img src="<%= @user.avatar.url %>" height="50" width="50">
-    <strong><%= link_to @user.nickname , profiles_show_path(@user.id)  %>:</strong>
-  
-    
-    <%= comment.commentbody %>
-  </p>
-   <% if(current_user)%>
-  <%  if(comment.user_id==current_user.id) %>
-
-    <%= link_to 'Destroy', event_commentevent_path(@event.id , comment),
-              method: :delete,
-              data: { confirm: 'Are you sure?' } , class: "btn btn-danger remove_fields"%>
- <% end %>
-
-   <%  if(comment.user_id==current_user.id) %>
-
-    <%= link_to 'Edit', edit_event_commentevent_path(@event,comment) ,:class=> 'btn btn-warning'%>
-    
- <% end %>
-   
-<% end %>
-<% end %>
-
-<!-- Add Comment -->
-<% if(current_user)%>
-<%  @eventuser = Eventuser.find_by_user_id_and_event_id(current_user.id,@event.id) %>
-       <%  if(@eventuser || @event.meeting.user_id == current_user.id )  %>
- 			<h2>Add a comment:</h2>
-			<%= form_for([@event, @event.commentevents.build]) do |f| %>
-			  <div class="field">	
-			    <%= f.hidden_field :event_id %>
-			  </div>
-			  <div class="field">	
-			    <%= f.hidden_field :user_id, :value => current_user.id %>
-			  </div>
-			  <div class="field">
-			    <%= f.label :commentbody %><br>
-			    <%= f.text_area :commentbody %>
-			  </div>
-			  <div class="actions">
-			    <%= f.submit %>
-			  </div>
-			<% end %>
-	<% end %>
+<%= link_to t('.back', :default => t("helpers.links.back")),
+              events_path, :class => 'btn btn-default'  %>
+<%= link_to t('.edit', :default => t("helpers.links.edit")),
+              edit_event_path(@event), :class => 'btn btn-default' %>
+<%= link_to t('.destroy', :default => t("helpers.links.destroy")),
+              event_path(@event),
+              :method => 'delete',
+              :data => { :confirm => t('.confirm', :default => t("helpers.links.confirm", :default => 'Are you sure?')) },
+              :class => 'btn btn-danger' %>
+</div>
+</div>
+</div>
