@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150511223656) do
+ActiveRecord::Schema.define(version: 20150513195741) do
 
   create_table "commentevents", force: :cascade do |t|
     t.integer  "event_id",    limit: 4
@@ -111,7 +111,6 @@ ActiveRecord::Schema.define(version: 20150511223656) do
     t.boolean  "admin",                  limit: 1
     t.string   "country",                limit: 255
     t.text     "aboutme",                limit: 65535
-    t.boolean  "isfemale",               limit: 1
     t.string   "nickname",               limit: 255
     t.string   "avatar_file_name",       limit: 255
     t.string   "avatar_content_type",    limit: 255
@@ -119,6 +118,7 @@ ActiveRecord::Schema.define(version: 20150511223656) do
     t.datetime "avatar_updated_at"
     t.string   "provider",               limit: 255
     t.string   "uid",                    limit: 255
+    t.string   "gender",                 limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -1,6 +1,10 @@
-<%= form_for :comment, url: meeting_comment_path(@comment.meeting_id,@comment), method: :put do |f| %>
+<div class="container">
+<div class="row">
+<div class="col-xs-offset-4">
+<%= form_for :comment, url: meeting_comment_path(@comment.meeting_id,@comment), method: :patch do |f| %>
 
-  <% if @comment.errors.any? %>
+
+    <% if @comment.errors.any? %>
     <div id="error_expl" class="panel panel-danger">
       <div class="panel-heading">
         <h3 class="panel-title"><%= pluralize(@comment.errors.count, "error") %> prohibited this comment from being saved:</h3>
@@ -15,34 +19,32 @@
     </div>
   <% end %>
 
-  <div class="form-group">
-    <%= f.label :meeting_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :meeting_id, :class => 'form-control' %>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :meeting_id, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:meeting_id) %>
+    <%= error_span(@comment[:meeting_id]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :user_id, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
-      <%= f.text_field :user_id, :class => 'form-control' %>
+  <div class="control-group">
+    <div class="controls">
+      <%= f.hidden_field :user_id, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:user_id) %>
+    <%= error_span(@comment[:user_id]) %>
   </div>
-  <div class="form-group">
-    <%= f.label :commentbody, :class => 'control-label col-lg-2' %>
-    <div class="col-lg-10">
+  <div class="control-group">
+    <%= f.label :commentbody, :class => 'control-label' %>
+    <div class="controls">
       <%= f.text_field :commentbody, :class => 'form-control' %>
     </div>
-    <%=f.error_span(:commentbody) %>
+    <%= error_span(@comment[:commentbody]) %>
   </div>
 
-  <div class="form-group">
-    <div class="col-lg-offset-2 col-lg-10">
-      <%= f.submit nil, :class => 'btn btn-primary' %>
-      <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
-                meeting_path(@comment.meeting_id), :class => 'btn btn-default' %>
-    </div>
-  </div>
+
+  <%= f.submit nil, :class => 'btn btn-primary' %>
+  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            comments_path, :class => 'btn btn-default' %>
 
 <% end %>
+</div>
+</div>
+</div>
